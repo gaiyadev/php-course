@@ -1,0 +1,30 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+#list {
+  list-style-type: none;
+}
+
+#error {
+  color: red;
+}
+.container {
+  width: 60%;
+  margin: auto;
+  background-color: aliceblue;
+  padding: 12px 15px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="submit"] {
+  width: 100%;
+  padding: 10px 15px;
+  box-sizing: border-box;
+}
+input[type="submit"] {
+  color: white;
+  background-color: black;
+}
