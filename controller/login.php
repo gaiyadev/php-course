@@ -1,4 +1,6 @@
 <?php
+require('../database/db.php');
+
 session_start();
 $errors= array();
 
@@ -30,20 +32,32 @@ if(isset($_POST['submit'])){
         header("Location: ../signin.php");
         die();  
     } 
+    //check user in db
+     $user = "SELECT * FROM Users WHERE email='$email'";
+     $result = mysqli_query($conn, $user);
 
-//     // checking db
-//     $myfile = fopen("../db.txt", "r") or die("Unable to open file!");
-//         $f = fread($myfile,filesize("../db.txt"));
-
-//        $arr = json_decode(json_encode($f), true);
-// // echo $arr;
-//         fclose($myfile);
-            
-    $_SESSION['username'] = $username;
-    $_SESSION['email'] = $email;
-
-    // redirect to dashboard
-    header("Location: ../dashboard/home.php");
+if (mysqli_num_rows($result) > 0) {
+while($row = mysqli_fetch_assoc($result)) {
+    $hashed_password =  $row["passwrd"];
+    if(password_verify($password, $hashed_password)) {
+        $_SESSION['id'] = $row['id'];
+        $_SESSION['username'] = $row['username'];
+        $_SESSION['email'] = $row['email'];       
+   // redirect to dashboard
+   header("Location: ../dashboard/home.php");
+} else {
+     array_push($errors,"Username or password is invalid!!");
+     $_SESSION['Error'] = $errors;
+     header("Location: ../signin.php");
+     die(); 
+   }
+}
+} else {
+    array_push($errors,"Username or password is invalid");
+        $_SESSION['Error'] = $errors;
+        header("Location: ../signin.php");
+        die(); 
+     } 
 
 } else {
  header("Location: ../index.php");

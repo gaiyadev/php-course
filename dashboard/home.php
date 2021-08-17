@@ -12,13 +12,33 @@ session_start();
 <body>
     <h1>Dashboard</h1>
     <?php 
-    if(isset($_SESSION['username']) || isset($_SESSION['email']) )
+    if(isset($_SESSION['username']) || isset($_SESSION['email']) || isset($_SESSION['id']) )
 {
     $username=  $_SESSION['username'];
     $email=  $_SESSION['email'];
-    echo "Welcome". " ". $username. " " . $email;
+    $id=  $_SESSION['id'];
+    echo "Welcome". " ". $username. " " . $email. $id. '<br/>';
     unset($_SESSION['Error']);
 }
     ?>
+    <br>
+    <hr>
+    <br>
+     <h3>Settings</h3>
+    <ul>
+        <a href="../dashboard/changePassword.php">Change Password</a> <br>
+        <a href="../dashboard/updateProfile.php">update Profile</a> <br> <br>
+        <form action="">
+            <button type='button' >Logout</button>
+        </form>
+    </ul>
+    <div style="float: right; margin-right: 140px; margin-top: -140px">
+    <h1>Post</h1>
+    <ul>
+        <a href="">Add post</a> <br>
+        <a href="">view post</a> <br> <br>
+       
+    </ul>
+    </div>
 </body>
 </html>

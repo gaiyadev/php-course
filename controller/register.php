@@ -1,4 +1,5 @@
 <?php
+require('../database/db.php');
 session_start();
 $errors= array();
 
@@ -25,10 +26,13 @@ if(isset($_POST['submit'])){
          $_SESSION['Error'] = $errors;
         header("Location: ../signup.php");   
      } else if(strlen($email) < 4) {
-        array_push($errors,"Username is too short");
+        array_push($errors,"Email is too short");
         $_SESSION['Error'] = $errors;
         header("Location: ../signup.php");
-    } 
+    } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+       array_push($errors,"Invalid email format");
+      $_SESSION['Error'] = $errors;
+    }
     
 
     // PASSWORD
@@ -42,34 +46,37 @@ if(isset($_POST['submit'])){
         $_SESSION['Error'] = $errors;
         header("Location: ../signup.php");
         die();  
-    }  elseif ($password !== $Cpassword) {
+    }  else if ($password !== $Cpassword) {
          array_push($errors,"Password mismatch");
         $_SESSION['Error'] = $errors;
         header("Location: ../signup.php");
         die();  
     }
-    
-    // save to file
-    $saveData = fopen("../db.txt", "w") or die("Unable to open file!");
 
-        $cars = array(
-        array(
-            'email' => $email
-        ),
-        array(
-            'username' => $username
-        ),
-        array(
-            'password' => $password
-        )
-        );
+    // check if email exist
+     $user = "SELECT email FROM Users WHERE email='$email'";
+     $result = mysqli_query($conn, $user);
 
+if (mysqli_num_rows($result) > 0) {
+      array_push($errors,"User already exist");
+        $_SESSION['Error'] = $errors;
+        header("Location: ../signup.php");
+        die();  
+} 
+  
+// hash the password
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    $txt = json_encode($cars);
-    fwrite($saveData, $txt);
-
-    fclose($saveData);
-
+//    store in database
+        $sql = "INSERT INTO Users (username, email, passwrd)
+        VALUES ('$username', '$email', '$hashed_password')";
+       if (mysqli_query($conn, $sql)) {
+        $_SESSION['Success'] = "account created";
+        
+        } else {
+        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+        }
+        mysqli_close($conn);
     // redirect to dashboard
     header("Location: ../signin.php");
 

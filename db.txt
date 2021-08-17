@@ -1,1 +1,1 @@
-[{"email":"epa@gmail.com"},{"username":"gaiyadev"},{"password":"password"}]
+[{"email":"gaiyaobed94@gmail.com"},{"username":"gaiyadev"},{"password":"123456"}]

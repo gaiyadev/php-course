@@ -9,11 +9,11 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PHP crash course</title>
-    <link rel="stylesheet" href="css/master.css">
+    <link rel="stylesheet" href="../css/master.css">
 </head>
 <body>
   <div class="container">
-        <h3>Sign in</h3>
+        <h3>Change password</h3>
     <?php 
     if( isset($_SESSION['Error']) ){
     $errors=  $_SESSION['Error'];
@@ -26,14 +26,20 @@ session_start();
         unset($_SESSION['Error']);
 }
     ?>
-   <form action="controller/login.php" method="post">
-            <label for="email">Email</label> <br>
-            <input type="email" name="email">
+   <form action="../controller/changePassword.php" method="post">
+            <label for="cPassword">current Password</label> <br>
+            <input type="password" name="cPassword">
             <br>
             <br>
-            <label for="password">Password</label>
+            <label for="nPassword">new Password</label>
             <br>
-            <input type="password" name="password">
+            <input type="password" name="nPassword">
+            <br>
+            <br>
+            
+            <label for="rPassword">etypw Password</label>
+            <br>
+            <input type="password" name="rPassword">
             <br>
             <br>
             <input type="submit" name="submit">

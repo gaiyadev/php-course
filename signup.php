@@ -23,6 +23,10 @@
     }
     echo "</ul>";
         unset($_SESSION['Error']);
+}else if( isset($_SESSION['Success']) ){
+    $success=  $_SESSION['Success'];
+        echo  $success;
+        unset($_SESSION['Success']);
 }
     ?>
    <form action="controller/register.php" method="post" onSubmit="submit();">
