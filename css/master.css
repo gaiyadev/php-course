@@ -28,3 +28,6 @@ input[type="submit"] {
   color: white;
   background-color: black;
 }
+#body {
+  width: 100%;
+}

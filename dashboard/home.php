@@ -35,8 +35,8 @@ session_start();
     <div style="float: right; margin-right: 140px; margin-top: -140px">
     <h1>Post</h1>
     <ul>
-        <a href="">Add post</a> <br>
-        <a href="">view post</a> <br> <br>
+        <a href="../dashboard/addPost.php">Add post</a> <br>
+        <a href="../dashboard/viewPost.php">view post</a> <br> <br>
        
     </ul>
     </div>

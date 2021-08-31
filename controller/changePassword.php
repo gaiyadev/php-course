@@ -1,14 +1,14 @@
 <?php
 session_start();
 require('../database/db.php');
-$errors= array();
+$errors = array();
 $id = $_SESSION["id"];/* userid of the user */
 
 if(isset($_POST['submit'])){
     $cPassword = $_POST['cPassword'];
     $nPassword = $_POST['nPassword'];
     $rPassword = $_POST['rPassword'];    
-echo $id;
+//echo $id;
     // PASSWORD
     if (empty($cPassword)) {
         array_push($errors,"curent Password is required");
@@ -28,6 +28,7 @@ echo $id;
     }
      //db
     $hashed_password = password_hash($nPassword, PASSWORD_DEFAULT);
+    
     $sql = "UPDATE Users SET passwrd='$hashed_password' WHERE id='$id'";
 
     if (mysqli_query($conn, $sql)) {

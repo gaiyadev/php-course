@@ -39,4 +39,19 @@ if (mysqli_query($conn, $sql)) {
   echo "Error creating table: " . mysqli_error($conn);
 }
 
+// sql to create Post table
+$sql = "CREATE TABLE IF NOT EXISTS Posts (
+id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+title VARCHAR(255) NOT NULL,
+body VARCHAR(255) NOT NULL,
+createdBy VARCHAR(6) NOT NULL,
+reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+)";
+
+if (mysqli_query($conn, $sql)) {
+  echo "Table posts created successfully";
+} else {
+  echo "Error creating table: " . mysqli_error($conn);
+}
+
 ?>
